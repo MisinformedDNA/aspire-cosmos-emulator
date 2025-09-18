@@ -1,12 +1,13 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var cosmosdb = builder.AddAzureCosmosDB("cosmosdb")
-    .RunAsEmulator()
+var cosmos = builder.AddAzureCosmosDB("cosmosdb")
+    .RunAsEmulator();
+var cosmosdb = cosmos
     .AddCosmosDatabase("test");
 
 var apiService = builder.AddProject<Projects.AspireApp1_ApiService>("apiservice")
     .WithHttpHealthCheck("/health")
-    .WithReference(cosmosdb);
+    .WithReference(cosmos);
 
 builder.AddProject<Projects.AspireApp1_Web>("webfrontend")
     .WithExternalHttpEndpoints()
