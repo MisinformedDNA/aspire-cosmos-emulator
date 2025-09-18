@@ -5,7 +5,8 @@ var cosmosdb = builder.AddAzureCosmosDB("cosmosdb")
     .AddCosmosDatabase("test");
 
 var apiService = builder.AddProject<Projects.AspireApp1_ApiService>("apiservice")
-    .WithHttpHealthCheck("/health");
+    .WithHttpHealthCheck("/health")
+    .WithReference(cosmosdb);
 
 builder.AddProject<Projects.AspireApp1_Web>("webfrontend")
     .WithExternalHttpEndpoints()
